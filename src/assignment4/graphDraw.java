@@ -11,7 +11,6 @@ import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -22,7 +21,7 @@ public class graphDraw extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private static int width = 800;
     private static int height = 400;
-    private List<Double> scores;
+    private ArrayList<Double> scores;
     private int padding = 25;
     private int labelPadding = 25;
     private Color lineColor = new Color(44, 102, 230, 180);
@@ -57,7 +56,7 @@ public class graphDraw extends JPanel{
 	        g2.setFont((g.getFont()).deriveFont(aff));
 	        g2.drawString(ytitle, padding, (getHeight()/2)+(ytitleWidth/2));
 
-	        List<Point> graphPoints = new ArrayList<>();
+	        ArrayList<Point> graphPoints = new ArrayList<>();
 	        for (int i = 0; i < scores.size(); i++) {
 	            int x1 = (int) (i * xScale + padding + labelPadding);
 	            int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
@@ -132,7 +131,7 @@ public class graphDraw extends JPanel{
 	        }
 	 }
 
-	 public graphDraw(List<Double> scores) {
+	 public graphDraw(ArrayList<Double> scores) {
 	        this.scores = scores;
 	 }
 	 private double getMinScore() {
@@ -160,28 +159,30 @@ public class graphDraw extends JPanel{
 		 return maxScore;
 	 }
 	 
-	 public void setScores(List<Double> scores) {
+	 public void setScores(ArrayList<Double> scores) {
 		 this.scores = scores;
 		 invalidate();
 		 this.repaint();
 	 }
 
-	 public List<Double> getScores() {
+	 public ArrayList<Double> getScores() {
 		 return scores;
 	 }
 	 
-	 private static void createAndShowGui() {
-	        List<Double> scores = new ArrayList<>();
+	 public static void createAndShowGui() {
+	        ArrayList<Double> scores = new ArrayList<>();
 	        Random random = new Random();
 	        int maxDataPoints = 31;
 	        int maxScore = 100;
 	        for (int i = 0; i < maxDataPoints; i++) {
-	            scores.add((double) random.nextDouble() * maxScore);
-	            System.out.println((i+1)+": "+scores.get(i));
+	        	scores.add((double) random.nextDouble() * maxScore);
+	            //displays data points to verify graphs accuracy
+	            //System.out.println((i+1)+": "+scores.get(i));
 	        }
 	        graphDraw mainPanel = new graphDraw(scores);
 	        mainPanel.setPreferredSize(new Dimension(width, height));
-	        JFrame frame = new JFrame("DrawGraph");
+	        //JFrame frame = new JFrame("DrawGraph");
+	        JFrame frame = new JFrame();
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.getContentPane().add(mainPanel);
 	        frame.pack();
@@ -195,5 +196,9 @@ public class graphDraw extends JPanel{
 	            createAndShowGui();
 	         }
 	      });
+	      
 	    }
+	    
+	
+	    
 }
