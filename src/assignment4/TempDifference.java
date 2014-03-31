@@ -14,10 +14,27 @@ public class TempDifference
 	static String d1[] = new String[3];
 	static String d2[] = new String[3];
 	static int menu = 0,submenu=0;
-	static String subVal;
+	static String subVal; 
+	private String name,file;
+	
+	public String getFile(){
+		return file;
+	}
+	public void setFile(String file){
+		this.file = file;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	
 	public static void main(String[] args) 
 	{
+		
 		ArrayList<Double> dat=new ArrayList<Double>();
 		dateIN();
 		menu();
