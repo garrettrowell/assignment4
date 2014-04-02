@@ -11,7 +11,6 @@ import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +28,7 @@ public class graphDraw extends JPanel{
     private Color gridColor = new Color(200, 200, 200, 200);
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth = 4;
-    private int numberYDivisions = 25;
+    private int numberYDivisions = 20;
 
 	 @Override protected void paintComponent(Graphics g) {
 	        super.paintComponent(g);
@@ -96,17 +95,7 @@ public class graphDraw extends JPanel{
 	                g2.setColor(gridColor);
 	                g2.drawLine(padding + labelPadding + 1 + pointWidth+(12+padding), y0, getWidth() - padding, y1);
 	                g2.setColor(Color.BLACK);
-	                //String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
-	                System.out.println("i: "+i+" "+Math.round(getMinScore()+(getMaxScore()-getMinScore())*i/numberYDivisions));
-	                String yLabel = Math.round(getMinScore()+(getMaxScore()-getMinScore())*i/numberYDivisions)+ "";
-	                //String yLabel = ((Double)((getMaxScore()-getMinScore())*i/numberYDivisions)) + "";
-	                
-	                /*
-	                System.out.println("getMinScore: "+getMinScore());
-	                System.out.println("getMaxScore: "+getMaxScore());
-	                System.out.println("i: "+i);
-	                System.out.println("numberYDivisions: "+numberYDivisions);
-	                */
+	                String yLabel = Math.round(getMinScore()+(getMaxScore()-getMinScore())*i/numberYDivisions)+ "";             
 	                
 	                int labelWidth = metrics.stringWidth(yLabel);
 	                AffineTransform at = AffineTransform.getRotateInstance(Math.toRadians(360));
@@ -180,26 +169,11 @@ public class graphDraw extends JPanel{
 		 return scores;
 	 }
 	 
-	 public static void createAndShowGui() {
-	        /*ArrayList<Double> scores = new ArrayList<>();
-	        Random random = new Random();
-	        int maxDataPoints = 31;
-	        int maxScore = 100;
-	        for (int i = 0; i < maxDataPoints; i++) {
-	        	scores.add((double) random.nextDouble() * maxScore);
-	            //displays data points to verify graphs accuracy
-	            //System.out.println((i+1)+": "+scores.get(i));
-	        }
-	        graphDraw mainPanel = new graphDraw(scores);
-	        */
+	public static void createAndShowGui() {
 		 	graphDraw mainPanel = new graphDraw(getScores());
-		 	for (int i = 0;i<=scores.size()-1;i++){
-		 		System.out.println((i+1)+": "+scores.get(i));
-		 	}
 	        mainPanel.setPreferredSize(new Dimension(width, height));
 	        JFrame frame = new JFrame("DrawGraph");
-	        //JFrame frame = new JFrame();
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        frame.getContentPane().add(mainPanel);
 	        frame.pack();
 	        frame.setLocationRelativeTo(null);
