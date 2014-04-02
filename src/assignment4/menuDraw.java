@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 public class menuDraw extends JPanel{
 
@@ -21,7 +22,8 @@ public class menuDraw extends JPanel{
 	private static final int width = 800;
     private static final int height = 400;
     private static JButton fileBtn,exitBtn,graphBtn;
-    private static JLabel lbl1,lbl2;
+    private static JLabel lbl1;
+    private static JTextArea lbl2;
     private static JRadioButton MaxF,MeanF,MinF,MaxDewF,MeanDewF,MinDewF,MaxHum,MeanHum,MinHum,MaxPress,MeanPress,MinPress,MaxVis,MeanVis,MinVis,MaxWind,MeanWind;
     private static JFileChooser fileChoo;
     
@@ -98,7 +100,9 @@ public class menuDraw extends JPanel{
     	exitBtn = new JButton("Exit");
     	fileBtn = new JButton("Select File to Graph");
     	
-    	lbl2 = new JLabel("Data File");
+    	lbl2 = new JTextArea("Data File");
+    	lbl2.setLineWrap(true);
+    	lbl2.setEditable(false);
         JPanel rightPnl = new JPanel();
         rightPnl.setLayout(new GridLayout(2,2));
         rightPnl.add(lbl2);

@@ -3,7 +3,7 @@ package assignment4;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 
 public class TempDifference 
 {
@@ -33,7 +33,7 @@ public class TempDifference
 		ArrayList<WundergroundData> wd = WundergroundData.fromFile(getFile());			
 					
 		for (WundergroundData w : wd) {
-			Date day = w.getDate();
+			//Date day = w.getDate();
 			//System.out.println(day);
 		
 
@@ -111,7 +111,9 @@ public class TempDifference
 			}
 		graphDraw graph = new graphDraw(dat);
 		graph.setScores(dat);
-		graphDraw.main(null);
+		graphDraw.setTitle(getName()+" for "+ getFile().substring(getFile().lastIndexOf('/')+1));
+		graphDraw.setXtitle("Days in File");
+		graphDraw.main(args);
 	}
 	
 }

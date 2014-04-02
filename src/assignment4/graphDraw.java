@@ -29,8 +29,70 @@ public class graphDraw extends JPanel{
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth = 4;
     private int numberYDivisions = 20;
+    private static String title, xtitle, ytitle;
 
-	 @Override protected void paintComponent(Graphics g) {
+	 public static String getTitle() {
+		return title;
+	}
+
+	public static void setTitle(String title) {
+		graphDraw.title = title;
+	}
+
+	public static String getXtitle() {
+		return xtitle;
+	}
+
+	public static void setXtitle(String xtitle) {
+		graphDraw.xtitle = xtitle;
+	}
+
+	public static String getYtitle() {
+		return ytitle;
+	}
+
+	public static void setYtitle(String ytitle) {
+		graphDraw.ytitle = ytitle;
+	}
+	 public graphDraw(ArrayList<Double> scores) {
+	        graphDraw.scores = scores;
+	 }
+	 private double getMinScore() {
+		 double minScore = Double.MAX_VALUE;
+		 for (Double score : scores) {
+			 minScore = Math.round(Math.min(minScore, score));
+		 }
+		 if (minScore>=0)
+			 minScore=0;
+		 else{
+			 while (minScore%10!=0){
+				 minScore--;
+			 }
+		 }
+		 return minScore;
+	 }
+
+	 private double getMaxScore() {
+		 double maxScore = Double.MIN_VALUE;
+		 for (Double score : scores) {
+			 maxScore = Math.round(Math.max(maxScore, score));
+		 }
+		 while(maxScore%10!=0)
+			 maxScore++;
+		 return maxScore;
+	 }
+	 
+	 public void setScores(ArrayList<Double> scores) {
+		 graphDraw.scores = scores;
+		 invalidate();
+		 this.repaint();
+	 }
+
+	 public static ArrayList<Double> getScores() {
+		 return scores;
+	 }
+
+	@Override protected void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        Graphics2D g2 = (Graphics2D) g;
 	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -40,8 +102,8 @@ public class graphDraw extends JPanel{
 	        FontMetrics metrics = g2.getFontMetrics();
 	        AffineTransform aff = AffineTransform.getRotateInstance(Math.toRadians(-90));
 
-	        String title="Graph Title";
-	        String xtitle="X Title";
+	        String title=getTitle();
+	        String xtitle=getXtitle();
 	        String ytitle="Y Title";
 	        
 	        //makes the title
@@ -129,44 +191,6 @@ public class graphDraw extends JPanel{
 	            int ovalH = pointWidth;
 	            g2.fillOval(x, y, ovalW, ovalH);
 	        }
-	 }
-
-	 public graphDraw(ArrayList<Double> scores) {
-	        graphDraw.scores = scores;
-	 }
-	 private double getMinScore() {
-		 double minScore = Double.MAX_VALUE;
-		 for (Double score : scores) {
-			 minScore = Math.round(Math.min(minScore, score));
-		 }
-		 if (minScore>=0)
-			 minScore=0;
-		 else{
-			 while (minScore%10!=0){
-				 minScore--;
-			 }
-		 }
-		 return minScore;
-	 }
-
-	 private double getMaxScore() {
-		 double maxScore = Double.MIN_VALUE;
-		 for (Double score : scores) {
-			 maxScore = Math.round(Math.max(maxScore, score));
-		 }
-		 while(maxScore%10!=0)
-			 maxScore++;
-		 return maxScore;
-	 }
-	 
-	 public void setScores(ArrayList<Double> scores) {
-		 graphDraw.scores = scores;
-		 invalidate();
-		 this.repaint();
-	 }
-
-	 public static ArrayList<Double> getScores() {
-		 return scores;
 	 }
 	 
 	public static void createAndShowGui() {
