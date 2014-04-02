@@ -21,7 +21,7 @@ public class graphDraw extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private static int width = 800;
     private static int height = 400;
-    private ArrayList<Double> scores;
+    private static ArrayList<Double> scores;
     private int padding = 25;
     private int labelPadding = 25;
     private Color lineColor = new Color(44, 102, 230, 180);
@@ -96,7 +96,18 @@ public class graphDraw extends JPanel{
 	                g2.setColor(gridColor);
 	                g2.drawLine(padding + labelPadding + 1 + pointWidth+(12+padding), y0, getWidth() - padding, y1);
 	                g2.setColor(Color.BLACK);
-	                String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
+	                //String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
+	                System.out.println("i: "+i+" "+Math.round(getMinScore()+(getMaxScore()-getMinScore())*i/numberYDivisions));
+	                String yLabel = Math.round(getMinScore()+(getMaxScore()-getMinScore())*i/numberYDivisions)+ "";
+	                //String yLabel = ((Double)((getMaxScore()-getMinScore())*i/numberYDivisions)) + "";
+	                
+	                /*
+	                System.out.println("getMinScore: "+getMinScore());
+	                System.out.println("getMaxScore: "+getMaxScore());
+	                System.out.println("i: "+i);
+	                System.out.println("numberYDivisions: "+numberYDivisions);
+	                */
+	                
 	                int labelWidth = metrics.stringWidth(yLabel);
 	                AffineTransform at = AffineTransform.getRotateInstance(Math.toRadians(360));
 	                g2.setFont((g.getFont()).deriveFont(at));
@@ -132,7 +143,7 @@ public class graphDraw extends JPanel{
 	 }
 
 	 public graphDraw(ArrayList<Double> scores) {
-	        this.scores = scores;
+	        graphDraw.scores = scores;
 	 }
 	 private double getMinScore() {
 		 double minScore = Double.MAX_VALUE;
@@ -160,17 +171,17 @@ public class graphDraw extends JPanel{
 	 }
 	 
 	 public void setScores(ArrayList<Double> scores) {
-		 this.scores = scores;
+		 graphDraw.scores = scores;
 		 invalidate();
 		 this.repaint();
 	 }
 
-	 public ArrayList<Double> getScores() {
+	 public static ArrayList<Double> getScores() {
 		 return scores;
 	 }
 	 
 	 public static void createAndShowGui() {
-	        ArrayList<Double> scores = new ArrayList<>();
+	        /*ArrayList<Double> scores = new ArrayList<>();
 	        Random random = new Random();
 	        int maxDataPoints = 31;
 	        int maxScore = 100;
@@ -180,9 +191,14 @@ public class graphDraw extends JPanel{
 	            //System.out.println((i+1)+": "+scores.get(i));
 	        }
 	        graphDraw mainPanel = new graphDraw(scores);
+	        */
+		 	graphDraw mainPanel = new graphDraw(getScores());
+		 	for (int i = 0;i<=scores.size()-1;i++){
+		 		System.out.println((i+1)+": "+scores.get(i));
+		 	}
 	        mainPanel.setPreferredSize(new Dimension(width, height));
-	        //JFrame frame = new JFrame("DrawGraph");
-	        JFrame frame = new JFrame();
+	        JFrame frame = new JFrame("DrawGraph");
+	        //JFrame frame = new JFrame();
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.getContentPane().add(mainPanel);
 	        frame.pack();

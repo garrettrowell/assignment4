@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -22,11 +23,14 @@ public class menuDraw extends JPanel{
     private static JButton fileBtn,exitBtn,graphBtn;
     private static JLabel lbl1,lbl2;
     private static JRadioButton MaxF,MeanF,MinF,MaxDewF,MeanDewF,MinDewF,MaxHum,MeanHum,MinHum,MaxPress,MeanPress,MinPress,MaxVis,MeanVis,MinVis,MaxWind,MeanWind;
+    private static JFileChooser fileChoo;
     
 	public static void createAndShowGUI(){
+		final TempDifference td = new TempDifference();
+		
         menuDraw mainPanel = new menuDraw();
         mainPanel.setPreferredSize(new Dimension(width, height));
-        JFrame frame = new JFrame("MainMenu");
+        final JFrame frame = new JFrame("MainMenu");
         mainPanel.setLayout(new GridLayout(1,2));
         
         //Sets up RadioButtons
@@ -128,8 +132,8 @@ public class menuDraw extends JPanel{
 					}
 				}
 				//System.out.println(temp.getText());
-				TempDifference td = new TempDifference();
 				td.setName(temp.getText());
+				TempDifference.main(null);
 			}
     	}
     			);
@@ -138,7 +142,10 @@ public class menuDraw extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("fileButtonPressed!!!!");
+				JFileChooser fileChoo = new JFileChooser();
+				int returnVal = fileChoo.showOpenDialog(frame);
+				lbl2.setText(fileChoo.getSelectedFile().toString());
+				td.setFile(fileChoo.getSelectedFile().toString());
 				
 			}
     	}

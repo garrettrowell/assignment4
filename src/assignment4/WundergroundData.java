@@ -210,7 +210,7 @@ public class WundergroundData {
 					}
 					catch(NumberFormatException e)
 					{
-						System.out.println("MGust "+e);
+						//System.out.println("MGust "+e);
 					}
 					try
 					{
@@ -218,7 +218,7 @@ public class WundergroundData {
 					}
 					catch(NumberFormatException e)
 					{
-						System.out.println(la[0]+" Precip "+e+" assuming 0");
+						//System.out.println(la[0]+" Precip "+e+" assuming 0");
 					}
 					try
 					{
@@ -226,7 +226,7 @@ public class WundergroundData {
 					}
 					catch(NumberFormatException e)
 					{
-						System.out.println("CloudCover "+e);
+						//System.out.println("CloudCover "+e);
 					}
 					try
 					{
@@ -234,7 +234,7 @@ public class WundergroundData {
 					}
 					catch(NumberFormatException e)
 					{
-						System.out.println("Events "+e);
+						//System.out.println("Events "+e);
 					}
 					try
 					{
@@ -242,7 +242,7 @@ public class WundergroundData {
 					}
 					catch(NumberFormatException e)
 					{
-						System.out.println("WindDir "+e);
+						//System.out.println("WindDir "+e);
 					}
 					
 					
