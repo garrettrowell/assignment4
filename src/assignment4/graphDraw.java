@@ -27,7 +27,7 @@ public class graphDraw extends JPanel{
     private Color pointColor = new Color(100, 100, 100, 180);
     private Color gridColor = new Color(200, 200, 200, 200);
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
-    private int pointWidth = 4;
+    private int pointWidth = 5;
     private int numberYDivisions = 20;
     private static String title, xtitle, ytitle;
 
@@ -101,21 +101,17 @@ public class graphDraw extends JPanel{
 	        double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
 	        FontMetrics metrics = g2.getFontMetrics();
 	        AffineTransform aff = AffineTransform.getRotateInstance(Math.toRadians(-90));
-
-	        String title=getTitle();
-	        String xtitle=getXtitle();
-	        String ytitle="Y Title";
-	        
+        
 	        //makes the title
-	        int titleWidth = metrics.stringWidth(title);
-	        g2.drawString(title, getWidth()/2-titleWidth/2, 15);
+	        int titleWidth = metrics.stringWidth(getTitle());
+	        g2.drawString(getTitle(), getWidth()/2-titleWidth/2, 15);
 	        //x axis title
-	        int xtitleWidth = metrics.stringWidth(xtitle);
-	        g2.drawString(xtitle, getWidth()/2-xtitleWidth/2, getHeight()-5);
+	        int xtitleWidth = metrics.stringWidth(getXtitle());
+	        g2.drawString(getXtitle(), getWidth()/2-xtitleWidth/2, getHeight()-5);
 	        //y axis title
-	        int ytitleWidth = metrics.stringWidth(ytitle);
+	        int ytitleWidth = metrics.stringWidth(getYtitle());
 	        g2.setFont((g.getFont()).deriveFont(aff));
-	        g2.drawString(ytitle, padding, (getHeight()/2)+(ytitleWidth/2));
+	        g2.drawString(getYtitle(), padding, (getHeight()/2)+(ytitleWidth/2));
 
 	        ArrayList<Point> graphPoints = new ArrayList<>();
 	        for (int i = 0; i < scores.size(); i++) {
@@ -193,26 +189,26 @@ public class graphDraw extends JPanel{
 	        }
 	 }
 	 
-	public static void createAndShowGui() {
-		 	graphDraw mainPanel = new graphDraw(getScores());
-	        mainPanel.setPreferredSize(new Dimension(width, height));
-	        JFrame frame = new JFrame("DrawGraph");
-	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        frame.getContentPane().add(mainPanel);
-	        frame.pack();
-	        frame.setLocationRelativeTo(null);
-	        frame.setVisible(true);
+		public static void createAndShowGui() {
+			/* UNCOMMENT TO VERIFY VALUES BEING GRAPHED CORRECTLY
+			for (int i=0; i<= getScores().size()-1;i++)
+			{
+				System.out.println(getScores().get(i));
+			}
+			*/
+			graphDraw mainPanel = new graphDraw(getScores());
+			mainPanel.setPreferredSize(new Dimension(width, height));
+			JFrame frame = new JFrame("DrawGraph");
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.getContentPane().add(mainPanel);
+			frame.pack();
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
 	    }
 
-	    public static void main(String[] args) {
-	      SwingUtilities.invokeLater(new Runnable() {
-	         public void run() {
-	            createAndShowGui();
-	         }
-	      });
-	      
-	    }
-	    
-	
-	    
+		public static void main(String[] args) {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					createAndShowGui();}});
+	    } 
 }
